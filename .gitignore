@@ -1,0 +1,5 @@
+/target
+**/*.rs.bk
+
+# contains DATABASE_URL env variable for diesel
+.env 
