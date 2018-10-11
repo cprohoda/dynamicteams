@@ -2,6 +2,6 @@
 CREATE TABLE users (
   id SERIAL PRIMARY key,
   email TEXT NOT NULL,
-  skills TEXT[],
-  tasks TEXT[]
+  skills TEXT ARRAY,
+  tasks TEXT ARRAY
 )
