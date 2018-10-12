@@ -11,7 +11,7 @@ mod models;
 mod schema;
 
 use diesel::prelude::*;
-use database::{connect, create_user, show_users};
+use database::{connect, create_user, show_users, get_user};
 use models::NewUser;
 
 #[get("/")]
@@ -38,6 +38,8 @@ fn main() {
     create_user(&connection, &user2);
 
     show_users(&connection);
+    let first_user = get_user(&connection, user1.email);
+    println!("{:?}", first_user);
 
     rocket::ignite().mount("/", routes![index]).launch();
 }

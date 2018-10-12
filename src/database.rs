@@ -4,6 +4,7 @@ use dotenv::dotenv;
 use std::env;
 
 use models::{User, NewUser};
+use schema::users;
 
 pub fn connect() -> PgConnection {
     dotenv().ok();
@@ -17,12 +18,13 @@ pub fn show_users(connection: &PgConnection) {
     let users_data = users.load::<User>(connection).expect("blah");
 
     for user in users_data {
-        println!("{:?}", user.id);
-        println!("{:?}", user.email);
-        println!("{:?}", user.skills);
-        println!("{:?}", user.tasks);
-        println!("\n");
+        println!("{:?}\n", user);
     }
+}
+
+pub fn get_user(connection: &PgConnection, email: &str) -> Result<User, diesel::result::Error> {
+    users::table.filter(users::email.eq(email))
+                .first::<User>(connection)
 }
 
 pub fn create_user(connection: &PgConnection, user: &NewUser) {
