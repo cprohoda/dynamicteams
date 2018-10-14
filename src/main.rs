@@ -1,6 +1,3 @@
-#![feature(plugin)]
-#![plugin(rocket_codegen)]
-
 #[macro_use]
 extern crate diesel;
 extern crate dotenv;
@@ -9,15 +6,11 @@ extern crate rocket;
 mod database;
 mod models;
 mod schema;
+mod web;
 
 use diesel::prelude::*;
 use database::{connect, create_user, show_users, get_user};
 use models::NewUser;
-
-#[get("/")]
-fn index() -> &'static str {
-    "Hello world"
-}
 
 fn main() {
     let connection = connect();
@@ -41,5 +34,5 @@ fn main() {
     let first_user = get_user(&connection, user1.email);
     println!("{:?}", first_user);
 
-    rocket::ignite().mount("/", routes![index]).launch();
+    web::launch();
 }
