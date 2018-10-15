@@ -1,6 +1,6 @@
 use schema::users;
 
-#[derive(Queryable,Debug)]
+#[derive(Queryable,Debug,Serialize)]
 pub struct User {
     pub id: i32,
     pub email: String,
