@@ -4,7 +4,7 @@ use database::{connect, get_user};
 
 pub fn launch() {
     rocket::ignite()
-        .mount("/", routes![index])
+        .mount("/", routes![index, user])
         .attach(Template::fairing())
         .catch(catchers![not_found])
         .launch();
