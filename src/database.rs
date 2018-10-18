@@ -27,11 +27,10 @@ pub fn get_user(connection: &PgConnection, email: &str) -> Result<User, diesel::
                 .first::<User>(connection)
 }
 
-pub fn create_user(connection: &PgConnection, user: &NewUser) {
+pub fn create_user(connection: &PgConnection, user: &NewUser) -> Result<User, diesel::result::Error> {
     use schema::users::dsl::*;
 
     diesel::insert_into(users)
         .values(user)
         .get_result::<User>(connection)
-        .expect("Error saving new users");
 }
