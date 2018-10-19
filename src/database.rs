@@ -34,3 +34,14 @@ pub fn create_user(connection: &PgConnection, user: &NewUser) -> Result<User, di
         .values(user)
         .get_result::<User>(connection)
 }
+
+pub fn update_user(connection: &PgConnection, user: &User) -> Result<User, diesel::result::Error> {
+    diesel::update(
+            users::table.filter(
+                users::id.eq(&user.id)))
+        .set(
+            (users::email.eq(&user.email),
+             users::skills.eq(&user.skills),
+             users::tasks.eq(&user.tasks)))
+        .get_result::<User>(connection)
+}
