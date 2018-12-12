@@ -1,10 +1,10 @@
 use rocket_contrib::Template;
 use std::collections::HashMap;
-use database::{connect, get_user};
+use database::{connect, get_user, get_org};
 
 pub fn launch() {
     rocket::ignite()
-        .mount("/", routes![index, user])
+        .mount("/", routes![index, user, org])
         .attach(Template::fairing())
         .catch(catchers![not_found])
         .launch();
@@ -27,7 +27,18 @@ fn user(value: String) -> Template {
             not_found()
         }
     }
+}
 
+#[get("/org/<value>")]
+fn org(value: String) -> Template {
+    match get_org(&connect(), &value) {
+        Ok(org) => {
+            Template::render("org", org)
+        }
+        Err(err) => {
+            not_found()
+        }
+    }
 }
 
 #[catch(404)]

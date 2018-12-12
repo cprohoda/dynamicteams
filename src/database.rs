@@ -3,8 +3,8 @@ use diesel::prelude::*;
 use dotenv::dotenv;
 use std::env;
 
-use models::{User, NewUser};
-use schema::users;
+use models::{User, NewUser, Org, NewOrg};
+use schema::{users, orgs};
 
 pub fn connect() -> PgConnection {
     dotenv().ok();
@@ -25,6 +25,11 @@ pub fn show_users(connection: &PgConnection) {
 pub fn get_user(connection: &PgConnection, email: &str) -> Result<User, diesel::result::Error> {
     users::table.filter(users::email.eq(email))
                 .first::<User>(connection)
+}
+
+pub fn get_org(connection: &PgConnection, code: &str) -> Result<Org, diesel::result::Error> {
+    orgs::table.filter(orgs::code.eq(code))
+                .first::<Org>(connection)
 }
 
 pub fn create_user(connection: &PgConnection, user: &NewUser) -> Result<User, diesel::result::Error> {
