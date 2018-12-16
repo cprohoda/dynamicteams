@@ -16,10 +16,24 @@ struct AuthorizedSession {
 }
 
 struct JWT {
+    header: JWTHeader,
+    payload: JWTPayload,
+    signature: JWTSignature,
+}
+
+impl fmt::Display for JWT {
+    fn fmt(&self, f: &mut fmt:Formatter) -> fmt::Result {
+        write!(f, "{}.{}.{}", self.header, self.payload, self.signature)
+    }
+}
+
+struct JWTHeader {
     header_alg: String,
     header_typ: String,
+}
+
+struct JWTPayload {
     payload: Vec<JWTPayloadClaims>,
-    Signature: String,
 }
 
 enum JWTPayloadClaims { // names by JWT specifications
@@ -30,4 +44,10 @@ enum JWTPayloadClaims { // names by JWT specifications
     nbf(String),
     iat(String),
     jti(String),
+}
+
+struct JWTSignature {
+    secret: String,
+    header: JWTHeader,
+    payload: JWTPayload,
 }
