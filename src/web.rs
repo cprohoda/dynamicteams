@@ -1,4 +1,4 @@
-use rocket_contrib::Template;
+use rocket_contrib::templates::Template;
 use std::collections::HashMap;
 use database::{connect, get_user, get_org};
 
@@ -6,7 +6,7 @@ pub fn launch() {
     rocket::ignite()
         .mount("/", routes![index, user, org])
         .attach(Template::fairing())
-        .catch(catchers![not_found])
+        .register(catchers![not_found])
         .launch();
 }
 
