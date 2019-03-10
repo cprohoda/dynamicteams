@@ -23,7 +23,7 @@ fn user(value: String) -> Template {
         Ok(user) => {
             Template::render("user", user)
         }
-        Err(err) => {
+        Err(_err) => {
             not_found()
         }
     }
@@ -35,7 +35,7 @@ fn org(value: String) -> Template {
         Ok(org) => {
             Template::render("org", org)
         }
-        Err(err) => {
+        Err(_err) => {
             not_found()
         }
     }

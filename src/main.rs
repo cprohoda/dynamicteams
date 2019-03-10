@@ -15,11 +15,6 @@ mod models;
 mod schema;
 mod web;
 
-use diesel::prelude::*;
-use database::{connect, create_user, show_users, get_user, update_user};
-use models::NewUser;
-use models::User;
-
 fn main() {
     web::launch();
 }
