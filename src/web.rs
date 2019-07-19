@@ -17,6 +17,9 @@ fn index() -> Template {
     Template::render("index", context)
 }
 
+// #[post("/login")]
+// fn ()
+
 #[get("/user/email/<value>")]
 fn user(value: String) -> Template {
     match get_user(&connect(), &value) {

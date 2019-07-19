@@ -7,3 +7,16 @@ First steps:
 6) Return user web response - done
 7) Update user - done
 8) Authentication - 
+
+How to do auth:
+- Request guard user
+- When checking request guard:
+	- Check if a user has a valid jwt
+		- If yes, construct the AuthUser and return
+		- If no, continue the process
+	- Redirect to login
+	- Send user creds to auth0
+	- Recieve token from auth0
+	- Check if token from auth0 matches token from user
+	- If so, construct AuthUser
+- Send user to their preferred page
